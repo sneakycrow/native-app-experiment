@@ -1,0 +1,4 @@
+[workspace]
+members = [ "backend","tauri-app/src-tauri"]
+
+resolver = "2"
