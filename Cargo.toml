@@ -1,4 +1,4 @@
 [workspace]
-members = ["backend", "tauri-app/src-tauri", "migration"]
+members = ["backend", "tauri-app/src-tauri", "migration", "entity"]
 
 resolver = "2"
