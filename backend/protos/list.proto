@@ -1,17 +1,63 @@
 syntax = "proto3";
 
 package list;
+import "todo.proto";
 import "google/protobuf/timestamp.proto";
+
+enum ListResponseStatus {
+  Unspecified = 0;
+  ListCreated = 1;
+  ListFound = 2;
+  ListDeleted = 3;
+  ListUpdated = 4;
+}
 
 message List {
   // server-side generated unique ID
-  string id = 1;
+  int32 id = 1;
   // the name of the list
   string name = 2;
-  // the unique ID of the owner of the list
-  string owner_id = 3;
+  // the unique ID of the user that owns the list
+  int32 owner_id = 3;
+  // the todos within the list
+  repeated todo.ToDo todos = 4;
   // when the list was first created
   google.protobuf.Timestamp created_at = 5;
   // when the list was last updated
   google.protobuf.Timestamp updated_at = 6;
+}
+
+service ListManager { rpc Create(CreateListRequest) returns (ListResponse); }
+
+// a request for creating a new list
+message CreateListRequest {
+  // the name of the list
+  string name = 1;
+  // the unique ID of the user that owns the list
+  int32 owner_id = 2;
+}
+
+// request for getting one or more lists
+message FindListRequest {
+  // optional id to find
+  // leave unset to get all lists
+  optional int32 id = 1;
+}
+
+// request for deleting one or more lists
+message DeleteListRequest {
+  // the ID of the list to delete
+  int32 list_id = 1;
+}
+
+// request for updating one or more lists
+message UpdateListRequest {
+  // the updated list
+  List list = 1;
+}
+
+message ListResponse {
+  // the modified or read lists based on the request
+  repeated List lists = 1;
+  ListResponseStatus status = 2;
 }
