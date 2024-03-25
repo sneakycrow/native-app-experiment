@@ -1,7 +1,2 @@
-set dotenv-load
-
 serve:
     cargo run -p backend
-
-create-local-db:
-    docker run --name native-app-experiment-db -e POSTGRES_PASSWORD=password -d postgres
