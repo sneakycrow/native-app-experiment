@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package list;
+import "google/protobuf/timestamp.proto";
+
+message List {
+  // server-side generated unique ID
+  string id = 1;
+  // the name of the list
+  string name = 2;
+  // the unique ID of the owner of the list
+  string owner_id = 3;
+  // when the list was first created
+  google.protobuf.Timestamp created_at = 5;
+  // when the list was last updated
+  google.protobuf.Timestamp updated_at = 6;
+}
