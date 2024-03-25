@@ -3,7 +3,7 @@ use std::env;
 use tokio::time::Duration;
 
 // Get the database string from the environment
-fn get_dsn_from_env() -> String {
+pub fn get_dsn_from_env() -> String {
     env::var("DATABASE_URL").expect("DATABASE_URL not set")
 }
 
