@@ -1,6 +1,8 @@
 use std::net::SocketAddr;
 
+mod db;
 mod manager;
+
 pub mod todo {
     tonic::include_proto!("todo");
 }
