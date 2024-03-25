@@ -4,72 +4,73 @@ package todo;
 import "google/protobuf/timestamp.proto";
 
 enum ToDoResponseStatus {
-    Unspecified = 0;
-    ToDoCreated = 1;
-    ToDoFound = 2;
-    ToDoDeleted = 3;
-    ToDoUpdated = 4;
+  Unspecified = 0;
+  ToDoCreated = 1;
+  ToDoFound = 2;
+  ToDoDeleted = 3;
+  ToDoUpdated = 4;
 }
 
 message ToDo {
-    // server-side generated unique ID
-    string id = 1;
-    // the unique ID for the list that the todo belongs to
-    string list_id = 2;
-    // the todo copy itself, such as "pick up the groceries"
-    string message = 3;
-    // whether or not the todo is completed
-    bool is_completed = 4;
-    // when the todo was first created
-    google.protobuf.Timestamp created_at = 5;
-    // when the todo was last updated
-    google.protobuf.Timestamp updated_at = 6;
+  // server-side generated unique ID
+  string id = 1;
+  // the unique ID for the list that the todo belongs to
+  string list_id = 2;
+  // the todo copy itself, such as "pick up the groceries"
+  string message = 3;
+  // whether or not the todo is completed
+  bool is_completed = 4;
+  // when the todo was first created
+  google.protobuf.Timestamp created_at = 5;
+  // when the todo was last updated
+  google.protobuf.Timestamp updated_at = 6;
 }
 
 service ToDoManager {
-    rpc Find(FindToDoRequest) returns (ToDoResponse);
-    rpc Create(CreateToDoRequest) returns (ToDoResponse);
-    rpc Delete(DeleteToDoRequest) returns (ToDoResponse);
-    rpc Update(UpdateToDoRequest) returns (ToDoResponse);
+  rpc Find(FindToDoRequest) returns (ToDoResponse);
+  rpc Create(CreateToDoRequest) returns (ToDoResponse);
+  rpc Delete(DeleteToDoRequest) returns (ToDoResponse);
+  rpc Update(UpdateToDoRequest) returns (ToDoResponse);
 }
 
 // request for creating a single new ToDo
 message CreateToDoRequest {
-    // the todo copy itself, such as "pick up the groceries"
-    string message = 1;
-    // whether or not the todo is completed
-    // defaults to false, but can be set if you simply want to record a completed todo
-    optional bool is_completed = 2;
+  // the todo copy itself, such as "pick up the groceries"
+  string message = 1;
+  // whether or not the todo is completed
+  // defaults to false, but can be set if you simply want to record a completed
+  // todo
+  optional bool is_completed = 2;
 }
 
 // request for getting one or more todos
 message FindToDoRequest {
-    // the ID of the list the todo belongs to
-    string list_id = 1;
-    // a list of todo id's to get
-    // leave empty/unset to get all todos for a list
-    repeated string todo_id_list = 2;
+  // the ID of the list the todo belongs to
+  string list_id = 1;
+  // a list of todo id's to get
+  // leave empty/unset to get all todos for a list
+  repeated string todo_id_list = 2;
 }
 
 // request for deleting one or more todos
 message DeleteToDoRequest {
-    // the ID of the list the todo belongs to
-    string list_id = 1;
-    // a list of todo id's to delete
-    // leave empty will throw an error
-    repeated string todo_id_list = 3;
+  // the ID of the list the todo belongs to
+  string list_id = 1;
+  // a list of todo id's to delete
+  // leave empty will throw an error
+  repeated string todo_id_list = 3;
 }
 
 // request for updating one or more todos
 message UpdateToDoRequest {
-    // the updated todo
-    ToDo todo = 1;
+  // the updated todo
+  ToDo todo = 1;
 }
 
 // a generic response for all ToDoManager endpoints
 message ToDoResponse {
-    // the modified or read todos based on the request
-    repeated ToDo todos = 1;
-    // the status of the action taken against a todo
-    ToDoResponseStatus status = 2;
+  // the modified or read todos based on the request
+  repeated ToDo todos = 1;
+  // the status of the action taken against a todo
+  ToDoResponseStatus status = 2;
 }
