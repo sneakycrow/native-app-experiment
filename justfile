@@ -13,3 +13,6 @@ create-local-db:
         -e POSTGRES_PASSWORD=password \
         -e POSTGRES_DB=native_app_experiment \
         -d postgres
+
+migup:
+    sea-orm-cli migrate up
